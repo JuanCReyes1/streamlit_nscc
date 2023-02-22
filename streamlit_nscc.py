@@ -33,3 +33,9 @@ my_map.add_child(FastMarkerCluster(gdf[["lat","lng"]].values.tolist()))
 st.title("Clustering Canadian Cities", anchor=None)
 
 st_data = st_folium(my_map,width=1000)
+
+
+values = st.slider(
+    'Select a range of values',
+    0.0, 100.0, (25.0, 75.0))
+st.write('Values:', values)
