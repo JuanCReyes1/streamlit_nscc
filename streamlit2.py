@@ -32,10 +32,18 @@ ns_lng = -62.6572
 #### Using streamlit ####
 #Set a title for the page
 st.title("Clustering Canadian Cities", anchor=None)
+st.markdown("# Welcome! This is my first streamlit app🎈!")
+st.markdown("#### We are going to demonstrate some geospatial data analysis.")
+st.write(" Let's take a quick look at the data which we are studying:")
 
-st.write("We are going to demonstrate some geospatial data analysis. Let's take a quick look at the data which we are studying:")
-st.dataframe(canadian_cities_df.head(10))
+if st.checkbox('Would you like to see the dataframe?'):
+    #x = st.slider('x')  # 👈 this is a widget
+    # Add a slider to the sidebar:
+    #add_slider = st.sidebar.slider('Select a range of values',0.0, 100.0, 25.0)
 
+    values = st.slider('Select a range of values to display from the dataframe',0, len(canadian_cities_df), (0, 10))
+    st.write("The data you selected to display ranges from: ",values[0],"to ",values[1])
+    st.dataframe(canadian_cities_df.iloc[values[0]:values[1]+1])
 
 
 #folium map
@@ -75,22 +83,3 @@ folium.LayerControl().add_to(my_map)
 st_data = st_folium(my_map,width=2000,height=500, returned_objects = [])
 
 
-# create a Folium map centered on the first point
-map = folium.Map(location=[gdf['lat'].iloc[0], gdf['lng'].iloc[0]], zoom_start=10)
-
-# add markers for each point in the GeoDataFrame
-gdf.apply(lambda row: 
-        folium.Marker(location=[row['lat'],row['lng']],
-popup=f"City name: {row.city} \n lat,lon:({row.lat},{row.lng})",
-tooltip=f"City name: {row.city} \n lat,lon:({row.lat},{row.lng})",
-icon=folium.Icon(color="green"),
-).add_to(map), axis=1)
-
-
-# display the map
-#### Using streamlit ####
-#Set a title for the page
-st.title("Adding markers to folium map.", anchor=None)
-
-#Adding a folium map into a render call using Streamlit.
-st_data = st_folium(map,width=2000,height=1000, returned_objects = [])

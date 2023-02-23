@@ -32,12 +32,22 @@ ns_lng = -62.6572
 #### Using streamlit ####
 #Set a title for the page
 st.title("Clustering Canadian Cities", anchor=None)
-st.write("We are going to demonstrate some geospatial data analysis. Let's take a quick look at the data which we are studying:")
-st.dataframe(canadian_cities_df.head(10))
+st.markdown("# Welcome! This is my first streamlit app🎈!")
+st.markdown("#### We are going to demonstrate some geospatial data analysis.")
+st.write(" Let's take a quick look at the data which we are studying:")
+
+if st.checkbox('Would you like to see the dataframe?'):
+    #x = st.slider('x')  # 👈 this is a widget
+    # Add a slider to the sidebar:
+    #add_slider = st.sidebar.slider('Select a range of values',0.0, 100.0, 25.0)
+
+    values = st.slider('Select a range of values to display from the dataframe',0, len(canadian_cities_df), (0, 10))
+    st.write("The data you selected to display ranges from: ",values[0],"to ",values[1])
+    st.dataframe(canadian_cities_df.iloc[values[0]:values[1]+1])
 
 
 #folium map
-my_map = folium.Map(tiles='OpenStreetMap',location=[ns_lat,ns_lng], zoom_start=7)
+my_map = folium.Map(tiles='OpenStreetMap',location=[ns_lat,ns_lng], zoom_start=5)
 HeatMap(gdf[["lat","lng"]].values.tolist(), name='City Density', show=False, radius=10).add_to(my_map)
 #add data from geoJson objects
 #folium.GeoJson(data = gdf).add_to(my_map)
@@ -64,16 +74,12 @@ marker_cluster = MarkerCluster(
     control=True,
 
 )
-
 marker_cluster.add_to(my_map)
-
 
 # add a layer control to toggle the layers
 folium.LayerControl().add_to(my_map)
 
-
-
-
 #Adding a folium map into a render call using Streamlit.
-st_data = st_folium(my_map,width=1000,height=500, returned_objects = [])
+st_data = st_folium(my_map,width=2000,height=500, returned_objects = [])
+
 

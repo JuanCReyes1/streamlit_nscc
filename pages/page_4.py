@@ -13,6 +13,8 @@ from shapely.geometry import Point
 
 import matplotlib.pyplot as plt
 
+st.markdown("# Page 4 ❄️")
+
 
 ##read data with pandas
 canadian_cities = pd.read_csv(r"canadacities.csv")

@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
+st.markdown("# Page 2 ❄️")
+
 ##Adding sliders to the page
 values = st.slider(
     'Range One',
