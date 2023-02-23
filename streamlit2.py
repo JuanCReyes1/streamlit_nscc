@@ -69,9 +69,8 @@ folium.LayerControl().add_to(my_map)
 
 
 
-
 #Adding a folium map into a render call using Streamlit.
-st_data = st_folium(my_map,width=500,height=500, returned_objects = [])
+st_data = st_folium(my_map,width=5000,height=500, returned_objects = [])
 
 
 ##Adding sliders to the page
