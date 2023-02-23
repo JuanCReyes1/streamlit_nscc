@@ -33,7 +33,7 @@ ns_lng = -62.6572
 st.title("Clustering Canadian Cities", anchor=None)
 
 #folium map
-my_map = folium.Map(tiles='OpenStreetMap',location=[ns_lng,ns_lat], zoom_start=7)
+my_map = folium.Map(tiles='OpenStreetMap',location=[ns_lat,ns_lng], zoom_start=7)
 HeatMap(gdf[["lat","lng"]].values.tolist(), name='City Density', show=False, radius=10).add_to(my_map)
 #add data from geoJson objects
 #folium.GeoJson(data = gdf).add_to(my_map)
@@ -71,7 +71,7 @@ folium.LayerControl().add_to(my_map)
 
 
 #Adding a folium map into a render call using Streamlit.
-st_data = st_folium(my_map,width=5000,height=500, returned_objects = [])
+st_data = st_folium(my_map,width=1000,height=500, returned_objects = [])
 
 
 ##Adding sliders to the page
