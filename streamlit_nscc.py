@@ -16,6 +16,7 @@ import matplotlib.pyplot as plt
 
 ##read data with pandas
 canadian_cities = pd.read_csv(r"canadacities.csv")
+canadian_cities_df = pd.read_csv(r"canadacities.csv")
 #create geometry column with shapely for use in geopandas
 geometry_cities = [ Point(xy) for xy in zip(canadian_cities["lng"],canadian_cities["lat"])   ]
 #create geodataframe object 
@@ -31,6 +32,9 @@ ns_lng = -62.6572
 #### Using streamlit ####
 #Set a title for the page
 st.title("Clustering Canadian Cities", anchor=None)
+st.write("We are going to demonstrate some geospatial data analysis. Let's take a quick look at the data which we are studying:")
+st.dataframe(canadian_cities_df.head(10))
+
 
 #folium map
 my_map = folium.Map(tiles='OpenStreetMap',location=[ns_lat,ns_lng], zoom_start=7)
