@@ -6,3 +6,4 @@ pandas
 numpy
 geopandas
 shapely
+matplotlib
