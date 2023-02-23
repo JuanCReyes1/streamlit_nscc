@@ -38,42 +38,6 @@ st.dataframe(canadian_cities_df.head(10))
 
 
 
-#folium map
-my_map = folium.Map(tiles='OpenStreetMap',location=[ns_lat,ns_lng], zoom_start=5)
-HeatMap(gdf[["lat","lng"]].values.tolist(), name='City Density', show=False, radius=10).add_to(my_map)
-#add data from geoJson objects
-#folium.GeoJson(data = gdf).add_to(my_map)
-
-
-#fg = folium.FeatureGroup(name="city")
-#fg.add_child(folium.features.GeoJson(gdf))
-#my_map.add_child(fg)
-
-#create clusters and add them to map
-
-#my_map.add_child(FastMarkerCluster(gdf[["lat","lng"]].values.tolist(),name="Layer Name"))
-
-locations = gdf[["lat","lng"]].values.tolist()
-popup_attributes = gdf[["lat","lng","city","province_name","population","density"]].values.tolist()
-popups = ["Latitude:{}<br>Longitude:{}<br>City:{}<br>Province:{}<br>Population:{}<br>Density:{}".format(
-    lat, lng, city, province_name, population, density) for (lat, lng, city,province_name,population,density) in popup_attributes]
-
-marker_cluster = MarkerCluster(
-    locations=locations,
-    popups=popups,
-    name="1000 clustered icons",
-    overlay=True,
-    control=True,
-
-)
-marker_cluster.add_to(my_map)
-
-# add a layer control to toggle the layers
-folium.LayerControl().add_to(my_map)
-
-#Adding a folium map into a render call using Streamlit.
-st_data = st_folium(my_map,width=2000,height=500, returned_objects = [])
-
 
 # create a Folium map centered on the first point
 map = folium.Map(location=[gdf['lat'].iloc[0], gdf['lng'].iloc[0]], zoom_start=10)
